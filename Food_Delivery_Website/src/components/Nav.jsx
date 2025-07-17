@@ -4,6 +4,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { dataContext } from '../contextApi/UserContext';
 import { food_items } from '../food/Food';
+import { useSelector } from 'react-redux';
 
 function Nav() {
   let {input,setInput,setCat,showCart,setShowCart} = useContext(dataContext);
@@ -11,6 +12,10 @@ function Nav() {
     let newList=food_items.filter((item)=>item.food_name.includes(input) || item.food_name.toLowerCase().includes(input))
     setCat(newList) 
   },[input])
+
+   let items = useSelector(state=>state.cart)
+  console.log(items);
+
   return (
     <div className='w-full h-[100px] flex justify-between items-center px-5 md:px-8'  >
       <div className='w-[60px] h-[60px] bg-white flex justify-center items-center rounded-md shadow-2xl'>
@@ -30,7 +35,7 @@ function Nav() {
           setShowCart(true)
         }}
       >
-        <span className='absolute top-0 right-2 text-green-500 font-semibold text-[18px]  '>0</span>
+        <span className='absolute top-0 right-2 text-green-500 font-semibold text-[18px]  '>{items.length}</span>
         <RiShoppingBag4Line className=' w-[30px] h-[30px] text-green-500' />
       </div>
     </div>
